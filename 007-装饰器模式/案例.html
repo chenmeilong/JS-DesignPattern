@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="filmbtn">万里归途</button>
+    <script>
+       Function.prototype.before= function(beforeFn){
+            var _this = this
+            return function(){
+                //先进行前置函数调用
+                beforeFn.apply(this,arguments)
+                //执行原来的函数
+                return _this.apply(this,arguments)
+            }
+       }
+       Function.prototype.after= function(afterFn){
+            var _this = this
+            return function(){
+                var result = _this.apply(this,arguments)
+                //先进行前置函数调用
+                afterFn.apply(this,arguments)
+                //执行原来的函数
+                return result
+            }
+       }
+
+       function log(){
+           console.log("上传uv,pv数据")
+           
+       }
+
+       function render(){
+           console.log("页面处理逻辑")
+       }
+
+       render = render.before(log)
+
+       filmbtn.onclick = function(){
+           //........
+           render()
+           //........
+       }
+
+       //axios, jquery , before, interceptors
+
+       function ajax(url,method,params){
+        console.log(url,method,params)
+       }
+
+       ajax1 = ajax.before((url,method,params)=>{
+         params.token = "aaaaaaaaaaaaaaaaa"
+       })
+       //需要传token 使用这个
+       ajax1("/api","post",{
+           name:"kerwin"
+       }) 
+       //不需要 ,ajax使用另一个  
+
+       // 这样能避免API里面改来改去
+    </script>
+</body>
+
+</html>

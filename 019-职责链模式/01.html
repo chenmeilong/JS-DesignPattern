@@ -1,0 +1,34 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <button id="btn">注册</button>
+    <script>
+        btn.onclick = function(){
+            // console.log(input.value)
+            if(input.value.length===0){
+                console.log("这里不能为空")
+            }else{
+                if(Number.isNaN(+input.value)){
+                    console.log("这里必须是数字")
+                }else{
+                    if(input.value.length<6){
+                        console.log("这里必须要大于6个数字")
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

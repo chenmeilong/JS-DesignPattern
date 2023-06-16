@@ -1,0 +1,87 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+            height: 500px;
+        }
+        .box .left{
+            width: 150px;
+            background-color: skyblue;
+        }
+        .box .right{
+            flex:1;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        路径
+    </header>
+    <div class="box">
+        <div class="left">
+            <ul>
+                <li>首页</li>
+                <li>用户管理</li>
+                <li>权限管理</li>
+                <li>新闻管理</li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="bread"></div>
+        </div>
+    </div>
+
+    <script>
+       const PubSub = {
+            message:{},
+            publish(type,data){
+                // this.list.forEach(item=>item())
+                if(!this.message[type]) return 
+
+                this.message[type].forEach(item=>item(data))
+            },  
+            subscribe(type,cb){
+                if(!this.message[type]){
+                    this.message[type] = [cb]
+                }else{
+                    this.message[type].push(cb)
+                }
+            },
+
+            unsubscribe(type,cb){
+                if(!this.message[type]) return 
+                if(!cb){
+                    //取消所有当前type事件
+                    this.message[type] &&  (this.message[type].length=0)
+                }else{
+                    this.message[type]= this.message[type].filter(item=>item!==cb)
+                }
+            }
+        }
+
+        PubSub.subscribe("UpdateBread",function(data){
+            console.log("我是订阅者",data)
+            document.querySelector(".bread").innerHTML = data
+        })
+
+        let oli = document.querySelectorAll(".left li")
+        for(let i=0;i<oli.length;i++){
+            oli[i].onclick = function(){
+                PubSub.publish("UpdateBread",this.innerHTML)
+            }
+        }
+
+        //PubSub.publish("aaaa",this.innerHTML)
+        //PubSub.subscribe("aaaa",()=>{})
+    </script>
+</body>
+</html>

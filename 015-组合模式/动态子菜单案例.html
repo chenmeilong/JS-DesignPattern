@@ -1,0 +1,97 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <ul>
+        <li>用户管理
+            <ul>
+                <li>添加用户</li>
+                <li>编辑用户</li>
+            </ul>
+        </li>
+    </ul> -->
+    <div id="root"></div>
+    <script>
+        const Folder = function(folder){
+            this.folder = folder
+            this.list = []//保存 子文件夹 或者文件
+        }
+
+        Folder.prototype.add = function(res){
+            this.list.push(res)
+        }
+
+        Folder.prototype.scan = function(oul){
+            console.log("扫描文件夹",this.folder)
+            if(this.folder==="root"){
+               console.log("不创建节点")
+            }else{
+                var oul =document.createElement("ul")
+                var oli = document.createElement("li")
+                oli.innerHTML = this.folder
+                var ochildUl = document.createElement("ul")
+                oli.appendChild(ochildUl)
+                oul.appendChild(oli)
+                root.appendChild(oul)
+            }
+            for(let i = 0;i<this.list.length;i++){
+                this.list[i].scan(ochildUl)
+            }
+        }
+
+        const File = function(file){
+            this.file = file
+        }
+        File.prototype.scan = function(ochildUl){
+            // console.log(ochildUl)
+            console.log("开始扫描文件",this.file)
+
+            var oli = document.createElement("li")
+            oli.innerHTML = this.file
+            ochildUl.appendChild(oli)
+        }
+
+
+        //根
+        let rootFolder = new Folder("root")
+        //子文件夹
+        let htmlFolder = new Folder("用户管理")
+        let cssFolder = new Folder("权限管理")
+        let jsFolder = new Folder("新闻管理")
+
+        //文件
+        let html4 = new File("添加用户")
+        let html5 = new File("编辑用户")
+        let css2 = new File("添加权限")
+        let css3 = new File("编辑权限")
+        let es5 = new File("添加新闻")
+        let es6 = new File("编辑新闻")
+
+        rootFolder.add(htmlFolder)
+        rootFolder.add(cssFolder)
+        rootFolder.add(jsFolder)
+
+        htmlFolder.add(html4)
+        htmlFolder.add(html5)
+
+        cssFolder.add(css2)
+        cssFolder.add(css3)
+
+        jsFolder.add(es5)
+        jsFolder.add(es6)
+
+        //调用
+        rootFolder.scan()
+    </script>
+</body>
+
+</html>

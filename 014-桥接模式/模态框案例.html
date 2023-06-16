@@ -1,0 +1,66 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //modal 模态框 中间出现
+        //message 消息 右上角或者右下角出现
+        //toast  中下方出现的消息
+        const Aniations = {
+            bounce:{
+                show(ele){
+                    console.log(ele,"弹跳显示")
+                },
+                hide(ele){
+                    console.log(ele,"弹跳隐藏")
+                }
+            },
+            slide:{
+                show(ele){
+                    console.log(ele,"滑动显示")
+                },
+                hide(ele){
+                    console.log(ele,"滑动隐藏")
+                }
+            },
+            rotate:{
+                show(ele){
+                    console.log(ele,"旋转显示")
+                },
+                hide(ele){
+                    console.log(ele,"旋转隐藏")
+                }
+            }
+        }
+
+        function Toast(ele,animation){
+            this.ele = ele
+            this.animation = animation
+        }
+
+        Toast.prototype.show = function(){
+            //抽象
+            this.animation.show(this.ele)
+        }
+        Toast.prototype.hide = function(){
+            //抽象
+            this.animation.hide(this.ele)
+        }
+
+        let toast1= new Toast("div1",Aniations.rotate)  //对动画的封装，方便进行扩展
+
+        toast1.show()
+
+        setTimeout(()=>{
+            toast1.hide()
+        },1000)
+    </script>
+</body>
+</html>

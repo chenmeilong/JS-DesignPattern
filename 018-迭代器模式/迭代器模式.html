@@ -1,0 +1,64 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+
+    </ul>
+    <script>
+        var kerwinEach = function(arr,callback){
+            for(let i=0;i<arr.length;i++){
+                callback(i,arr[i])
+            }
+        }
+
+        kerwinEach([11,22,33,44],function(key,value){
+            // console.log(key,value)
+            var oli = document.createElement("li")
+            oli.innerHTML = value
+            list.appendChild(oli)
+        })
+
+        //ES6 Iterator
+
+        //Array map,set ,String ,arguments ,NodeList
+
+        var arr = ["kerwin","xiaoming","tiechui"]
+        console.log(arr)
+        // for(let i of arr){
+        //     console.log(i)
+        // }
+
+        let it = arr[Symbol.iterator]()  //取出迭代器对象
+        console.log(it)
+        console.log(it.next())
+        console.log(it.next())
+        console.log(it.next())
+        console.log(it.next())
+
+
+        var obj = {
+            0:"kerwin",
+            1:"tiechui",
+            2:"xiaoming",
+            length:3,  //必须有长度
+            [Symbol.iterator]:Array.prototype[Symbol.iterator] 
+            //Symbol.iterator属性赋值为迭代器用[]包一下 当成变量而不是字符串；做得和数组的迭代器一样所以直接赋值数组的迭代器
+        }
+
+        for(let i of obj){
+            console.log(i)
+        }
+    </script>
+</body>
+
+</html>

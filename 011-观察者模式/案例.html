@@ -1,0 +1,94 @@
+<!--
+ * @作者: kerwin
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+            height: 500px;
+        }
+        .box .left{
+            width: 150px;
+            background-color: skyblue;
+        }
+        .box .right{
+            flex:1;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        路径
+    </header>
+    <div class="box">
+        <div class="left">
+            <ul>
+                <li>首页</li>
+                <li>用户管理</li>
+                <li>权限管理</li>
+                <li>新闻管理</li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="bread"></div>
+        </div>
+    </div>
+
+    <script>
+        class Subject{
+            constructor(){
+                this.observers = []
+            }
+
+            add(observer){
+                this.observers.push(observer)
+            }
+            remove(observer){
+                //splice
+                //filter
+                this.observers = this.observers.filter(item=>item!==observer)
+            }
+
+            notify(data){
+                this.observers.forEach(item=>{
+                    // console.log(item)
+                    item.update(data)
+                })
+            }
+        }
+
+        class Observer{
+            constructor(name){
+                this.ele = document.querySelector(name)
+            }
+            update(data){
+                // console.log("update",this.name)
+                this.ele.innerHTML = data
+            }
+        }
+
+        const subject =new Subject()
+
+        const observer1 = new Observer(".bread")
+        const observer2 = new Observer(".header")
+
+        subject.add(observer1)
+        subject.add(observer2)
+        let oli = document.querySelectorAll(".left li")
+        for(let i=0;i<oli.length;i++){
+            oli[i].onclick = function(){
+                // console.log(oli[i])
+                // console.log(this.innerHTML)
+                subject.notify(this.innerHTML)
+            }
+        }
+
+    </script>
+</body>
+</html>

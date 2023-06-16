@@ -1,0 +1,73 @@
+<!--
+ * @作者: kerwin
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <button id="btn">注册</button>
+    <script>
+        btn.onclick = function () {
+            // console.log(input.value)
+            checks.check()
+        }
+
+        function checkEmpty() {
+            if (input.value.length === 0) {
+                console.log("这里不能为空")
+                return
+            }
+            return "next"
+        }
+
+        function checkNumber() {
+            if (Number.isNaN(+input.value)) {
+                console.log("这里必须是数字")
+                return
+            }
+            return "next"
+        }
+
+        function checkLength() {
+            if (input.value.length < 6) {
+                console.log("这里必须要大于6个数字")
+                return
+            }
+            return "next"
+        }
+
+        class Chain {
+            constructor(fn) {
+                this.checkRule = fn
+                this.nextRule = null
+            }
+
+            addRule(nextRule) {
+                this.nextRule = nextRule
+            }
+
+            check() {
+                this.checkRule() === "next" ? this.nextRule.check() : null
+            }
+        }
+
+        const checks = new Chain(checkEmpty)
+        const checkNumberChain = new Chain(checkNumber)
+        const checkLengthChain = new Chain(checkLength)
+        checks.addRule(checkNumberChain)
+        checkNumberChain.addRule(checkLengthChain)
+        checkLengthChain.addRule({
+            check:()=>"end"
+        })
+    </script>
+</body>
+
+</html>
