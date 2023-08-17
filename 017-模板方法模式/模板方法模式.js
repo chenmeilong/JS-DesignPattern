@@ -1,18 +1,16 @@
 var Container = function (params={}) {
-    var F = function () {}
-
-    F.prototype.init =async function () {
-        var list =await this.getData()
-        this.render(list)
+    class F{
+        init =async function () {
+            var list =await this.getData()
+            this.render(list)
+        }
+        getData =params.getData || function () {
+            throw new Error("必须传入getData")
+        }
+        render = function (list) {
+            console.log("render",list)
+        }
     }
-
-    F.prototype.getData =params.getData || function () {
-        throw new Error("必须传入getData")
-    }
-    F.prototype.render = function (list) {
-        console.log("render",list)
-    }
-
     return F
 }
 

@@ -1,26 +1,27 @@
-const Folder = function(folder){
-    this.folder = folder
-    this.list = []//保存 子文件夹 或者文件
-}
-
-Folder.prototype.add = function(res){
-    this.list.push(res)
-}
-
-Folder.prototype.scan = function(){
-    console.log("扫描文件夹",this.folder)
-    for(let i = 0;i<this.list.length;i++){
-        this.list[i].scan()
+class Folder{
+    constructor(folder){
+        this.folder = folder
+        this.list = []//保存 子文件夹 或者文件
+    }
+    add = function(res){
+        this.list.push(res)
+    }
+    scan = function(){
+        console.log("扫描文件夹",this.folder)
+        for(let i = 0;i<this.list.length;i++){
+            this.list[i].scan()
+        }
     }
 }
 
-const File = function(file){
-    this.file = file
-}
-File.prototype.scan = function(){
-    console.log("开始扫描文件",this.file)
-}
-
+class File{
+    constructor(file){
+        this.file = file
+    }
+    scan = function(){
+        console.log("开始扫描文件",this.file)
+    }
+} 
 
 //根
 let rootFolder = new Folder("root")

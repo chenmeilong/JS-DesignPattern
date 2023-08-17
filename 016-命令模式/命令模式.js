@@ -27,6 +27,5 @@ class Invoker{
     }
 }
 
-const order = new Command(new Receiver())
-const client = new Invoker(order)
+const client = new Invoker(new Command(new Receiver()))
 client.order()

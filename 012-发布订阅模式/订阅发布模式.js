@@ -5,7 +5,6 @@ const PubSub = {
     publish(type,data){
         // this.list.forEach(item=>item())
         if(!this.message[type]) return 
-
         this.message[type].forEach(item=>item(data))
     },  
     subscribe(type,cb){
@@ -15,7 +14,6 @@ const PubSub = {
             this.message[type].push(cb)
         }
     },
-
     unsubscribe(type,cb){
         if(!this.message[type]) return 
 
